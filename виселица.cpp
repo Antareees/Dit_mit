@@ -1,72 +1,87 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-vector<string> spisok({"MUSIC", "BOY", "GIRL", "EGG", "PEN", "PAPER", "ROOM", "SCHOOL", "COUNTRY", "COLOR", "CAR", "BROTHER", "BOOK"}); // список слов 
-int main() {
+vector<string> spisok({"MUSIC", "BOY", "GIRL", "EGG", "PEN", "PAPER", "ROOM", "SCHOOL", "COUNTRY", "COLOR", "CAR", "BROTHER", "BOOK"}); // СЃРїРёСЃРѕРє СЃР»РѕРІ
+int main()
+{
     srand(time(0));
     setlocale(LC_ALL, "Russian");
-    string alf="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
-    int count = 7; // количество шагов
-    bool lastcor=true; // флаг, который отвечает за использованные буквы
-    string word = spisok[rand() % spisok.size()]; // рандомное слово из списка
-    string guessed(word.size(), '_'); // отгаданное 
-    while (count > 0) {
-        system("cls"); // очистка консоли
-        cout << alf << endl; 
-        cout << "Осталось ходов: " <<  count << endl;
+    string alf = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int count = 7;                                // РєРѕР»РёС‡РµСЃС‚РІРѕ С€Р°РіРѕРІ
+    bool lastcor = true;                          // С„Р»Р°Рі, РєРѕС‚РѕСЂС‹Р№ РѕС‚РІРµС‡Р°РµС‚ Р·Р° РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹Рµ Р±СѓРєРІС‹
+    string word = spisok[rand() % spisok.size()]; // СЂР°РЅРґРѕРјРЅРѕРµ СЃР»РѕРІРѕ РёР· СЃРїРёСЃРєР°
+    string guessed(word.size(), '_');             // РѕС‚РіР°РґР°РЅРЅРѕРµ
+    while (count > 0)
+    {
+        system("cls"); // РѕС‡РёСЃС‚РєР° РєРѕРЅСЃРѕР»Рё
+        cout << alf << endl;
+        cout << "РћСЃС‚Р°Р»РѕСЃСЊ С…РѕРґРѕРІ: " << count << endl;
         cout << guessed << endl;
-        if (lastcor) {
-            cout << "Введите букву: ";
+        if (lastcor)
+        {
+            cout << "Р’РІРµРґРёС‚Рµ Р±СѓРєРІСѓ: ";
         }
-        else 
-            cout << "Ошибка! Введите корректную букву: ";   
+        else
+            cout << "РћС€РёР±РєР°! Р’РІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅСѓСЋ Р±СѓРєРІСѓ: ";
         string bukva;
         cin >> bukva;
-        for (int i=0; i<bukva.size();i++){
-            bukva[i] = toupper(bukva[i]); // изменение регистра
+        for (int i = 0; i < bukva.size(); i++)
+        {
+            bukva[i] = toupper(bukva[i]); // РёР·РјРµРЅРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°
         }
-        if (bukva.size() == 1){ 
-            int poz = find (alf.begin(), alf.end(), bukva[0]) - alf.begin(); //номер позиции буквы в алфавите 
-            if (poz == 26) {
+        if (bukva.size() == 1)
+        {
+            int poz = find(alf.begin(), alf.end(), bukva[0]) - alf.begin(); // РЅРѕРјРµСЂ РїРѕР·РёС†РёРё Р±СѓРєРІС‹ РІ Р°Р»С„Р°РІРёС‚Рµ
+            if (poz == 26)
+            {
                 lastcor = false;
                 continue;
             }
-            alf[poz] = '_'; //замена этой буквы в алфавите на прочерк
+            alf[poz] = '_'; // Р·Р°РјРµРЅР° СЌС‚РѕР№ Р±СѓРєРІС‹ РІ Р°Р»С„Р°РІРёС‚Рµ РЅР° РїСЂРѕС‡РµСЂРє
             lastcor = true;
-            if (find (word.begin(), word.end(), bukva[0]) == word.end()){
-                --count; // если буквы нет в слове то - ход 
+            if (find(word.begin(), word.end(), bukva[0]) == word.end())
+            {
+                --count; // РµСЃР»Рё Р±СѓРєРІС‹ РЅРµС‚ РІ СЃР»РѕРІРµ С‚Рѕ - С…РѕРґ
                 continue;
             }
-            for (int i=0; i<word.size(); i++){ // открываю нужную букву 
-                if (bukva[0] == word[i]) {
+            for (int i = 0; i < word.size(); i++)
+            { // РѕС‚РєСЂС‹РІР°СЋ РЅСѓР¶РЅСѓСЋ Р±СѓРєРІСѓ
+                if (bukva[0] == word[i])
+                {
                     guessed[i] = bukva[0];
-                } 
+                }
             }
-            if (find (guessed.begin(), guessed.end(), '_') == guessed.end()){ //если в занаданном слове не осталось _ то слово угадано 
+            if (find(guessed.begin(), guessed.end(), '_') == guessed.end())
+            { // РµСЃР»Рё РІ Р·Р°РЅР°РґР°РЅРЅРѕРј СЃР»РѕРІРµ РЅРµ РѕСЃС‚Р°Р»РѕСЃСЊ _ С‚Рѕ СЃР»РѕРІРѕ СѓРіР°РґР°РЅРѕ
                 system("cls");
-                cout << "Загаданное слово: " << guessed << endl;
-                cout << "Вы выиграли!"; 
-                break; 
+                cout << "Р—Р°РіР°РґР°РЅРЅРѕРµ СЃР»РѕРІРѕ: " << guessed << endl;
+                cout << "Р’С‹ РІС‹РёРіСЂР°Р»Рё!";
+                break;
             }
         }
-        if (bukva.size() != 1) { // если вводится слово целиком  
-            if (bukva == word) {
-            }
+        if (bukva.size() != 1)
+        { // РµСЃР»Рё РІРІРѕРґРёС‚СЃСЏ СЃР»РѕРІРѕ С†РµР»РёРєРѕРј
+            if (bukva == word)
+            {
                 guessed = bukva;
-            else {
+            }
+            else
+            {
                 --count;
             }
         }
-        if (find (guessed.begin(), guessed.end(), '_') == guessed.end()){
+        if (find(guessed.begin(), guessed.end(), '_') == guessed.end())
+        {
             system("cls");
-            cout << "Загаданное слово: " << guessed << endl;
-            cout << "Вы выиграли!";
+            cout << "Р—Р°РіР°РґР°РЅРЅРѕРµ СЃР»РѕРІРѕ: " << guessed << endl;
+            cout << "Р’С‹ РІС‹РёРіСЂР°Р»Рё!";
             break;
         }
-        } 
-    if (count == 0) {
-            system("cls");
-            cout << "Вы проиграли( ";
-            cout << "Загаданное слово: "<< word << endl;
+    }
+    if (count == 0)
+    {
+        system("cls");
+        cout << "Р’С‹ РїСЂРѕРёРіСЂР°Р»Рё( ";
+        cout << "Р—Р°РіР°РґР°РЅРЅРѕРµ СЃР»РѕРІРѕ: " << word << endl;
     }
 }
